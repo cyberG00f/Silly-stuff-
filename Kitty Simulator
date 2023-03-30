@@ -1,0 +1,101 @@
+import java.util.Scanner;
+
+public class CatSimulator {
+    private String name;
+    private int hunger;
+    private int happiness;
+    private boolean isAsleep;
+
+    public CatSimulator(String name) {
+        this.name = name;
+        this.hunger = 0;
+        this.happiness = 50;
+        this.isAsleep = false;
+    }
+
+    public void play() {
+        if (isAsleep) {
+            System.out.println(name + " is sleeping and cannot play.");
+        } else {
+            System.out.println(name + " is playing.");
+            hunger++;
+            happiness += 2;
+        }
+    }
+
+    public void feed() {
+        if (isAsleep) {
+            System.out.println(name + " is sleeping and cannot eat.");
+        } else {
+            System.out.println(name + " is eating.");
+            hunger -= 2;
+            happiness += 1;
+        }
+    }
+
+    public void sleep() {
+        System.out.println(name + " is sleeping.");
+        isAsleep = true;
+        happiness += 2;
+    }
+
+    public void wakeUp() {
+        System.out.println(name + " is waking up.");
+        isAsleep = false;
+    }
+
+    public void checkStatus() {
+        System.out.println(name + "'s hunger level is " + hunger);
+        System.out.println(name + "'s happiness level is " + happiness);
+        if (isAsleep) {
+            System.out.println(name + " is currently sleeping.");
+        } else {
+            System.out.println(name + " is currently awake.");
+        }
+    }
+    
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("What would you like to name your cat?");
+        String catName = scanner.nextLine();
+        CatSimulator cat = new CatSimulator(catName);
+
+        System.out.println("Welcome to the virtual cat simulator! Here are your options:");
+        System.out.println("1. Play with " + catName);
+        System.out.println("2. Feed " + catName);
+        System.out.println("3. Put " + catName + " to sleep");
+        System.out.println("4. Wake " + catName + " up");
+        System.out.println("5. Check " + catName + "'s status");
+        System.out.println("0. Exit the simulator");
+
+        int choice;
+        do {
+            System.out.println("What would you like to do?");
+            choice = scanner.nextInt();
+            switch (choice) {
+                case 1:
+                    cat.play();
+                    break;
+                case 2:
+                    cat.feed();
+                    break;
+                case 3:
+                    cat.sleep();
+                    break;
+                case 4:
+                    cat.wakeUp();
+                    break;
+                case 5:
+                    cat.checkStatus();
+                    break;
+                case 0:
+                    System.out.println("Thanks for playing!");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please choose again.");
+                    break;
+            }
+        } while (choice != 0);
+    }
+}
